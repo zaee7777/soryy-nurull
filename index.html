@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nurul — From Zae</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+ min-height:100vh;
+ overflow:hidden;
+ font-family:'DM Sans',sans-serif;
+ color:#685b78;
+ background:linear-gradient(135deg,#fce4ec,#e3eaff,#f9eafa);
+}
+
+#progress{
+ position:fixed;top:0;left:0;height:3px;
+ width:10%;background:#c38daf;
+ z-index:20;transition:.5s;
+}
+
+.slide{
+ position:absolute;inset:0;
+ padding:35px 25px 110px;
+ display:flex;flex-direction:column;
+ justify-content:center;align-items:center;
+ text-align:center;
+ opacity:0;visibility:hidden;
+ transform:scale(.75);
+ filter:blur(8px);
+ transition:opacity .7s,transform .9s,filter .7s;
+}
+
+.slide.active{
+ opacity:1;visibility:visible;
+ transform:scale(1);filter:blur(0);
+}
+
+h1,h2{
+ font-family:'Playfair Display',serif;
+ font-weight:400;color:#a36f94;
+}
+
+h1{font-size:clamp(43px,11vw,68px)}
+h2{font-size:clamp(30px,8vw,44px);margin-bottom:22px}
+
+.eyebrow{
+ font-size:10px;letter-spacing:4px;
+ color:#a28aa9;margin-bottom:24px;
+}
+
+.message{
+ max-width:430px;
+ font-size:14px;line-height:2;
+ font-weight:300;color:#70677d;
+}
+
+.heart{
+ font-size:30px;margin:24px;
+ animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+ 50%{transform:scale(1.2)}
+}
+
+.flower{
+ font-size:43px;margin-top:24px;
+ border:0;background:none;cursor:pointer;
+ animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+ 50%{transform:translateY(-12px) rotate(8deg)}
+}
+
+button{font-family:inherit;cursor:pointer}
+
+.mainbtn,.nav button,.music button{
+ border:1px solid #fff;
+ background:#ffffff85;
+ color:#926c91;
+ padding:12px 22px;
+ border-radius:30px;
+ backdrop-filter:blur(10px);
+}
+
+.mainbtn{margin-top:25px;letter-spacing:1px}
+
+.music{
+ position:fixed;right:17px;top:17px;z-index:30;
+}
+
+.nav{
+ position:fixed;bottom:34px;left:0;right:0;
+ display:flex;justify-content:center;
+ align-items:center;gap:15px;z-index:15;
+}
+
+.nav button{min-width:80px}
+#counter{font-size:11px;letter-spacing:2px;color:#987e9d}
+
+footer{
+ position:fixed;bottom:9px;width:100%;
+ text-align:center;font-size:9px;
+ letter-spacing:3px;color:#a48eaa;
+}
+
+#popup{
+ position:fixed;inset:0;z-index:50;
+ display:none;justify-content:center;align-items:center;
+ padding:25px;background:#51445d75;
+ backdrop-filter:blur(10px);
+}
+
+#popup.show{display:flex}
+
+.popup-card{
+ width:100%;max-width:340px;
+ padding:35px 25px;text-align:center;
+ border-radius:25px;
+ background:linear-gradient(145deg,#fff4f8,#f0efff);
+ animation:pop .4s ease;
+}
+
+@keyframes pop{
+ from{transform:scale(.6);opacity:0}
+ to{transform:scale(1);opacity:1}
+}
+
+.popup-card h2{font-size:28px}
+.popup-card p{font-size:14px;line-height:2;margin:18px 0}
+.popup-card button{
+ border:0;border-radius:25px;
+ padding:11px 25px;background:#d6a7c7;color:white;
+}
+
+.particle{
+ position:fixed;top:-30px;
+ pointer-events:none;z-index:1;
+ animation:fall linear forwards;opacity:.65;
+}
+
+@keyframes fall{
+ to{transform:translateY(110vh) rotate(300deg);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div id="progress"></div>
+
+<div class="music">
+ <button id="musicBtn" onclick="toggleMusic()">♫ MUSIC OFF</button>
+</div>
+
+<audio id="music" loop>
+ <source src="untuk-perempuan.mp3" type="audio/mpeg">
+</audio>
+
+<!-- OPENING -->
+<section class="slide active">
+ <div class="eyebrow">A LITTLE LETTER FOR YOU</div>
+ <h1>Dear Nurul.</h1>
+ <div class="heart">♡</div>
+ <p class="message">
+  ada sesuatu yang pengen aku sampaikan.
+  mungkin sederhana, tapi semuanya datang dari hati.
+ </p>
+ <button class="mainbtn" onclick="startLetter()">Open my letter →</button>
+ <button class="flower" onclick="showSecret()">🌷</button>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide">
+ <div class="eyebrow">01 — I'M SORRY</div>
+ <h2>maaf yaa...</h2>
+ <p class="message">
+  maaf yaa, aku udah bikin kamu badmood hari ini.
+  aku nggak pernah berniat bikin hari kamu jadi nggak menyenangkan.
+ </p>
+ <div class="heart">♡</div>
+ <button class="flower" onclick="showSecret()">🌷</button>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide">
+ <div class="eyebrow">02 — ABOUT MY JOKE</div>
+ <h2>soal bercandaku...</h2>
+ <p class="message">
+  soal jersey yang ada nama Keysya, aku cuma bercanda.
+  nggak ada maksud lain di balik perkataanku.
+ </p>
+ <div class="heart">♡</div>
+ <button class="flower" onclick="showSecret()">🌷</button>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide">
+ <div class="eyebrow">03 — THAT MOMENT</div>
+ <h2>aku cuma membantu...</h2>
+ <p class="message">
+  soal cewek yang motornya kejepit tadi,
+  aku cuma refleks membantu. bukan karena ada maksud lain.
+ </p>
+ <div class="heart">♡</div>
+ <button class="flower" onclick="showSecret()">🌷</button>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide">
+ <div class="eyebrow">04 — YOUR FEELINGS</div>
+ <h2>perasaan kamu...</h2>
+ <p class="message">
+  aku sadar mungkin sikap dan perkataanku bikin kamu kepikiran.
+  aku nggak mau perasaan kamu disepelekan.
+ </p>
+ <div class="heart">♡</div>
+ <button class="flower" onclick="showSecret()">🌷</button>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide">
+ <div class="eyebrow">05 — I'M LEARNING</div>
+ <h2>aku masih belajar...</h2>
+ <p class="message">
+  maaf kalau selama ini aku masih sering bikin kamu kecewa.
+  aku mau belajar memahami kamu lebih baik.
+ </p>
+ <div class="heart">♡</div>
+ <button class="flower" onclick="showSecret()">🌷</button>
+</section>
+
+<!-- SLIDE 7 -->
+<section class="slide">
+ <div class="eyebrow">06 — TAKE YOUR TIME</div>
+ <h2>nggak perlu buru-buru...</h2>
+ <p class="message">
+  aku nggak minta kamu langsung maafin aku.
+  kalau kamu masih butuh waktu, aku akan menghargainya.
+ </p>
+ <div class="heart">♡</div>
+ <button class="flower" onclick="showSecret()">🌷</button>
+</section>
+
+<!-- SLIDE 8 -->
+<section class="slide">
+ <div class="eyebrow">07 — STILL US</div>
+ <h2>aku masih di sini...</h2>
+ <p class="message">
+  aku sayang kamu, dan aku masih mau belajar
+  jadi seseorang yang lebih baik buat hubungan kita.
+ </p>
+ <div class="heart">♡</div>
+ <button class="flower" onclick="showSecret()">🌷</button>
+</section>
+
+<!-- SLIDE 9 -->
+<section class="slide">
+ <div class="eyebrow">08 — ONE MORE THING</div>
+ <h2>tentang kita...</h2>
+ <p class="message">
+  aku nggak mau kita saling menjauh karena masalah ini.
+  aku pengen kita bisa ngobrol dan memperbaiki semuanya bersama.
+ </p>
+ <div class="heart">♡</div>
+ <button class="flower" onclick="showSecret()">🌷</button>
+</section>
+
+<!-- SLIDE 10 -->
+<section class="slide">
+ <div class="eyebrow">FROM THE BOTTOM OF MY HEART</div>
+ <h1>I'm sorry.</h1>
+ <div class="heart">♡</div>
+ <p class="message">
+  maafin aku yaa, kaa.
+  terima kasih udah baca sampai akhir.
+  aku sayang kamu, Nurul.
+ </p>
+ <div class="eyebrow" style="margin-top:25px">WITH LOVE, ZAE.</div>
+ <button class="flower" onclick="showSecret()">🌷</button>
+ <button class="mainbtn" onclick="goTo(0)">Read again ↺</button>
+</section>
+
+<div class="nav">
+ <button onclick="prev()">← Back</button>
+ <span id="counter">01 / 10</span>
+ <button onclick="next()">Next →</button>
+</div>
+
+<footer>MADE WITH LOVE · ZAE ♡ NURUL</footer>
+
+<div id="popup" onclick="outsideClose(event)">
+ <div class="popup-card">
+  <div style="font-size:42px">🌸</div>
+  <h2>A little secret...</h2>
+  <p id="secretText"></p>
+  <button onclick="closeSecret()">close ♡</button>
+ </div>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const counter=document.getElementById('counter');
+const progress=document.getElementById('progress');
+const music=document.getElementById('music');
+const musicBtn=document.getElementById('musicBtn');
+
+let current=0;
+let secretIndex=0;
+
+const secrets=[
+ "nurul, kamu tetap jadi seseorang yang berarti buat aku. ♡",
+ "aku nggak selalu benar, tapi aku mau terus belajar.",
+ "perasaan kamu penting buat aku.",
+ "terima kasih udah hadir di cerita hidup aku.",
+ "aku suka hal-hal sederhana yang kita lalui bersama.",
+ "aku mau membuktikan sayangku lewat sikap, bukan cuma kata-kata.",
+ "semoga kita bisa saling memahami, bukan saling menyakiti.",
+ "semoga hari-hari kita ke depan lebih baik.",
+ "kamu nggak harus selalu baik-baik aja di depanku.",
+ "one flower for you, and one little apology from me. ♡"
+];
+
+function update(){
+ slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+ counter.textContent=String(current+1).padStart(2,'0')+' / 10';
+ progress.style.width=((current+1)/10*100)+'%';
+}
+
+function next(){
+ if(current<9){current++;update();}
+}
+function prev(){
+ if(current>0){current--;update();}
+}
+function goTo(n){current=n;update();}
+
+function startLetter(){
+ next();
+ music.play().then(()=>{
+  musicBtn.textContent='♫ MUSIC ON';
+ }).catch(()=>{
+  musicBtn.textContent='♫ TAP TO PLAY';
+ });
+}
+
+function toggleMusic(){
+ if(music.paused){
+  music.play().then(()=>musicBtn.textContent='♫ MUSIC ON')
+  .catch(()=>musicBtn.textContent='♫ TRY AGAIN');
+ }else{
+  music.pause();
+  musicBtn.textContent='♫ MUSIC OFF';
+ }
+}
+
+function showSecret(){
+ document.getElementById('secretText').textContent=
+ secrets[secretIndex%secrets.length];
+ secretIndex++;
+ document.getElementById('popup').classList.add('show');
+}
+
+function closeSecret(){
+ document.getElementById('popup').classList.remove('show');
+}
+
+function outsideClose(e){
+ if(e.target.id==='popup')closeSecret();
+}
+
+document.addEventListener('keydown',e=>{
+ if(e.key==='ArrowRight')next();
+ if(e.key==='ArrowLeft')prev();
+ if(e.key==='Escape')closeSecret();
+});
+
+let startX=0;
+document.addEventListener('touchstart',e=>{
+ startX=e.changedTouches[0].screenX;
+},{passive:true});
+
+document.addEventListener('touchend',e=>{
+ let endX=e.changedTouches[0].screenX;
+ if(startX-endX>75)next();
+ if(endX-startX>75)prev();
+},{passive:true});
+
+function createParticle(){
+ const p=document.createElement('div');
+ p.className='particle';
+ p.textContent=['✿','♡','✧','🌸'][Math.floor(Math.random()*4)];
+ p.style.left=Math.random()*100+'vw';
+ p.style.fontSize=(12+Math.random()*14)+'px';
+ p.style.animationDuration=(8+Math.random()*8)+'s';
+ document.body.appendChild(p);
+ setTimeout(()=>p.remove(),17000);
+}
+setInterval(createParticle,1200);
+
+update();
+</script>
+
+</body>
+</html>
